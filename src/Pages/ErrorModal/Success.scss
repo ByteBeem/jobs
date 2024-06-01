@@ -1,4 +1,4 @@
-.error-modal-overlay {
+.success-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     align-items: center;
   }
   
-  .error-modal {
+  .success-modal {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -41,8 +41,8 @@
     font-size: 16px;
   }
   
-  .error-message {
-    color: rgb(0, 255, 42);
+  .success-message {
+    color: rgb(26, 148, 46);
     font-size: 18px;
     margin-top: 10px;
   }
