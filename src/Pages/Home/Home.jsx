@@ -35,14 +35,14 @@ class Home extends Component {
                   <span className="step_number">1.</span> Ensure you have valid WhatsApp account.
                 </li>
                 <li className="step">
-                  <span className="step_number">2.</span> Click the "Jobs" button at the top right corner.
+                  <span className="step_number">2.</span> Click the "Jobhunt" button at the top right corner.
                 </li>
                 <li className="step">
                   <span className="step_number">3.</span> Fill out the application form.
                 </li>
                 <li className="step">
-                  <span className="step_number">4.</span> Click "Continue." By proceeding, you agree to pay a R30 fee
-                  for job assistance.
+                  <span className="step_number">4.</span> Click "Continue." By proceeding, you agree to pay a fee
+                  for jobhunt assistance.
                 </li>
                 <li className="step">
                   <span className="step_number">5.</span> Check your WhatsApp messages, as this is where we'll

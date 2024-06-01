@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Error from "../ErrorModal/ErrorModal";
 import Auth from "../Login/Login";
 import axios from "axios";
 import "./create.scss";
+import Success from "../ErrorModal/Success";
 
 const Create = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,9 @@ const Create = ({ isOpen, onClose }) => {
   const [surname, setSurname] = useState("");
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [jobTitles, setJobTitles] = useState(["", "", ""]);
-  const [errorModalOpen , setErrorModalOpen]=useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [successMessage] = useState("Your Request has been recieved , one of our agents will contact you on whatsapp.")
 
 
   const handleJobTitleChange = (index, event) => {
@@ -32,18 +35,19 @@ const Create = ({ isOpen, onClose }) => {
       };
 
       const response = await axios.post(
-        "https://play929-1e88617fc658.herokuapp.com/games/jobhunt",
+        "https://play929-1e88617fc658.herokuapp.com/wallet/jobhunt",
         payload,
         {
-         
+
         }
       );
 
       if (response.status === 200) {
-        window.location.href = response.data.Link;
+        setSuccessModal(true);
+
       }
     } catch (error) {
-      setErrorMessage(error.response.data.error || "Something went wrong.");
+      setErrorMessage(error.response.data.error || "Something went wrong , try again later.");
       setErrorModalOpen(true);
     } finally {
       setIsLoading(false);
@@ -129,6 +133,14 @@ const Create = ({ isOpen, onClose }) => {
             errorMessage={errorMessage}
             isOpen={errorModalOpen}
             onClose={() => setErrorModalOpen(false)}
+          />
+        )}
+
+        {successModal && (
+          <Success
+            errorMessage={successMessage}
+            isOpen={successModal}
+            onClose={() => setSuccessModal(false)}
           />
         )}
       </div>
