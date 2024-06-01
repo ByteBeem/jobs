@@ -35,7 +35,7 @@ const Create = ({ isOpen, onClose }) => {
       };
 
       const response = await axios.post(
-        "http://localhost:3001/wallet/jobhunt",
+        "https://play929-1e88617fc658.herokuapp.com/wallet/jobhunt",
         payload,
         {
 
@@ -88,7 +88,7 @@ const Create = ({ isOpen, onClose }) => {
               </div>
               <div>
                 <input
-                  type="cellphone"
+                  type="telephone"
                   value={whatsappNumber}
                   placeholder="WhatsApp Number"
                   onChange={(e) => setWhatsappNumber(e.target.value)}
