@@ -3,6 +3,49 @@
   align-items: flex-start;
   overflow-x: hidden;
 
+  .jobs_application {
+    margin-top: 30px;
+    text-align: center;
+
+    .application_title {
+      font-family: 'Arial', sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .application_steps {
+      list-style: none;
+      padding-left: 0;
+      counter-reset: step;
+
+      @media only screen and (max-width: 768px) {
+        // Adjust for smaller screens
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .step {
+          text-align: center;
+        }
+      }
+    }
+
+    .step {
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+
+      .step_number {
+        font-weight: bold;
+        margin-right: 5px;
+        color: #007bff;
+      }
+    }
+  }
+
   .home_container {
     flex: 6;
     padding-bottom: 3rem;
@@ -178,4 +221,38 @@
   }
 }
 }
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #555;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  p {
+    margin: 0;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 12px; 
+    padding: 10px; 
+    bottom: 90px;
+
+    &.above-sidebar {
+      bottom: unset;
+      top: 0;
+    }
+  }
 }
+
+
+
+}
+

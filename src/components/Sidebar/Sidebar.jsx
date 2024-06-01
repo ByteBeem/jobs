@@ -2,26 +2,14 @@ import "./sidebar.scss";
 import "../../App.scss";
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
-import { IoLogOut } from "react-icons/io5";
-import { GiWallet } from "react-icons/gi";
 import { useState } from "react";
 
 
 const Sidebar = ({ active, closeSidebar }) => {
   const [loading, setLoading] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
-
-  const handleLogout = () => {
-    setLoading(true);
-    localStorage.clear();
-    setTimeout(() => {
-      setLoading(false);
-      window.location.href = "";
-      closeSidebar();
-    }, 3000);
-  };
+ 
   return (
     <aside className={`sidebar ${active}`}>
       {loading && (
@@ -31,7 +19,7 @@ const Sidebar = ({ active, closeSidebar }) => {
         </div>
       )}
       <div className="top">
-        <h3>Spinz4bets</h3>
+        <h3>Jobs4life</h3>
         <div className="close_btn">&times;</div>
       </div>
 
@@ -45,37 +33,10 @@ const Sidebar = ({ active, closeSidebar }) => {
           <span>Home</span>
         </Link>
 
-        <Link
-          onClick={() => setActiveItem("wallet")}
-          className={activeItem === "wallet" ? "link active" : "link"}
-          to="/wallets"
-        >
-          <GiWallet className="icon" />
-          <span>Wallet</span>
-        </Link>
-
-        
-
-        <Link className="link" to="/profile">
-          <FaUser className="icon" />
-          <span>Profile</span>
-        </Link>
-
       
-
-        <Link
-          className="link"
-          to=""
-          onClick={() => {
-            closeSidebar();
-            handleLogout();
-          }}
-        >
-          <IoLogOut className="icon" />
-          <span>Logout</span>
-        </Link>
       </div>
-    </aside>
+
+    </aside >
   );
 };
 

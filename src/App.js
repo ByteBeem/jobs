@@ -6,11 +6,6 @@ import Logo from "./components/Logo/Logo";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import Reset from "./Pages/Reset/Reset";
-import Deposit from "./Pages/Deposit/Deposit";
-import Wallet from "./Pages/wallet/Wallet";
-import Games from "./Pages/Games/games";
-import Withdraw from "./Pages/Withdrawal/Withdrawal";
-import Verification from "./Pages/Verification/verify";
 import { AuthProvider } from "./components/AuthContext";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react"
@@ -69,62 +64,7 @@ function App() {
                                 />
                             }
                         />
-                        <Route
-                            path="deposit"
-                            element={
-                                <Deposit
-                                    showSidebar={showSidebar}
-                                    closeSidebar={closeSidebar}
-                                    active={active}
-                                />
-                            }
-                        />
-                        <Route
-                            path="wallets"
-                            element={
-                                <Wallet
-                                    showSidebar={showSidebar}
-                                    closeSidebar={closeSidebar}
-                                    active={active}
-                                />
-                            }
-                        />
-
-                        <Route
-                            path="verify"
-                            element={
-                                <Verification
-                                    showSidebar={showSidebar}
-                                    closeSidebar={closeSidebar}
-                                    active={active}
-                                />
-                            }
-                        />
-
-
-                        <Route
-                            path="games"
-                            element={
-                                <Games
-                                    showSidebar={showSidebar}
-                                    closeSidebar={closeSidebar}
-                                    active={active}
-                                />
-                            }
-                        />
-
-
-
-                        <Route
-                            path="withdraw"
-                            element={
-                                <Withdraw
-                                    showSidebar={showSidebar}
-                                    closeSidebar={closeSidebar}
-                                    active={active}
-                                />
-                            }
-                        />
+                        
                     </Route>
                 </Routes>
             </Router>

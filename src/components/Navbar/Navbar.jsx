@@ -1,77 +1,44 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { SiAmazongames } from "react-icons/si";
-import { Link } from "react-router-dom";
-import Login from "../../Pages/Login/Login";
+import React, { useState } from "react";
+import Create from "../../Pages/Games/create";
+import Error from "../../Pages/ErrorModal/ErrorModal";
 import "./Navbar.scss";
 
 const Navbar = ({ showSidebar }) => {
-  const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const apiKey = process.env.REACT_APP_SERVER;
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if(token){
-      fetchUserData(token);
-    } else {
-      setLoginModalOpen(true);
-    }
-  }, []);
-
-  const fetchUserData = (token) => {
-    setLoading(true);
-    axios
-      .get(`${apiKey}/balance`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then((response) => {
-        const balance = response.data;
-        if (balance !== undefined) {
-          setUserData(balance);
-        }
-      })
-      .catch((error) => {
-        // Handle error
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const openModal = () => {
+    setCreateModalOpen(true);
   };
 
-  const getCurrencySymbol = () => {
-    const country = userData.country;
-    const symbol = country === 'ZA' ? 'R' : '$';
-    localStorage.setItem("country", country);
-    return symbol;
-  };
 
   return (
     <>
       <header>
+
         <ul className="games_filter">
           <li>
             <div className="balance">
-              <h6>Spinz4bets</h6>
-              {loading ? "Loading..." : (
-                userData.balance ? `${getCurrencySymbol()}${userData.balance}` : 
-                <button  className="form_btn" onClick={() => setLoginModalOpen(true)}>Login</button>
-              )}
+              <h6>Jobs4life</h6>
+             
             </div>
           </li>
         </ul>
 
-        <Link className="link" to="/profile">
-          <SiAmazongames className="icon" />
-          <span>Games</span>
-        </Link>
-      </header>
+        {token &&
 
-    
-      {loginModalOpen && <Login isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} />}
+          <div className="tournament">
+            <div className="torn_name" >Jobhunt </div>
+            <button className="torn_btn" onClick={openModal}>+</button>
+          </div>
+        }
+      </header>
+      {createModalOpen && <Create isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)} />}
+      
+     
+      {errorModalOpen && <Error errorMessage={errorMessage} isOpen={errorModalOpen} onClose={() => setErrorModalOpen(false)} />}
     </>
   );
 };
