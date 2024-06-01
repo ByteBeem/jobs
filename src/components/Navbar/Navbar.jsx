@@ -7,7 +7,7 @@ const Navbar = ({ showSidebar }) => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const token = localStorage.getItem("token");
+  
 
   const openModal = () => {
     setCreateModalOpen(true);
@@ -27,13 +27,11 @@ const Navbar = ({ showSidebar }) => {
           </li>
         </ul>
 
-        {token &&
-
           <div className="tournament">
             <div className="torn_name" >Jobhunt </div>
             <button className="torn_btn" onClick={openModal}>+</button>
           </div>
-        }
+        
       </header>
       {createModalOpen && <Create isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)} />}
       
