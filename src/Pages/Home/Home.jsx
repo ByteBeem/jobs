@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import  WebcamCapture from "../../components/WebcamCapture";
 import "./Home.scss";
 
 
@@ -29,26 +30,7 @@ class Home extends Component {
           <Navbar showSidebar={showSidebar} />
           <div className="content">
             <div className="jobs_application">
-              <h2 className="application_title">Apply for Job Assistance</h2>
-              <ol className="application_steps">
-                <li className="step">
-                  <span className="step_number">1.</span> Ensure you have valid WhatsApp account.
-                </li>
-                <li className="step">
-                  <span className="step_number">2.</span> Click the "Jobhunt" button at the top right corner.
-                </li>
-                <li className="step">
-                  <span className="step_number">3.</span> Fill out the application form.
-                </li>
-                <li className="step">
-                  <span className="step_number">4.</span> Pay the Required fee of R50 to Capitec: 0729319169 
-                  and send Proof to Whatsapp : 0729319169.
-                </li>
-                <li className="step">
-                  <span className="step_number">5.</span> Check your WhatsApp messages, as this is where we'll
-                  communicate with you.
-                </li>
-              </ol>
+            <WebcamCapture />
             </div>
           </div>
         </div>
