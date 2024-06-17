@@ -35,7 +35,7 @@ class Home extends Component {
           </div>
         </div>
         <footer className={`footer ${isSidebarOpen ? "above-sidebar" : ""}`}>
-          <p>Our success rate is 80% in helping individuals secure jobs. Trust us to assist you in your job search!</p>
+          <p>See someone's real identity , Scan different faces and know your surroundings. Face4life.co.za does the job!</p>
         </footer>
       </div>
     );

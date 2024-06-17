@@ -19,19 +19,12 @@ const Sidebar = ({ active, closeSidebar }) => {
         </div>
       )}
       <div className="top">
-        <h3>Jobs4life</h3>
+        <h3>Face4ife.co.za</h3>
         <div className="close_btn">&times;</div>
       </div>
 
       <div className="middle">
-        <Link
-          onClick={() => setActiveItem("home")}
-          className={activeItem === "home" ? "link active" : "link"}
-          to="/dashboard"
-        >
-          <IoHome className="icon" />
-          <span>Home</span>
-        </Link>
+       
 
       
       </div>

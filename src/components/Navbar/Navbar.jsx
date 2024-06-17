@@ -21,16 +21,13 @@ const Navbar = ({ showSidebar }) => {
         <ul className="games_filter">
           <li>
             <div className="balance">
-              <h6>Jobs4life</h6>
+              <h6>Face4ife.co.za</h6>
              
             </div>
           </li>
         </ul>
 
-          <div className="tournament">
-            <div className="torn_name" >Jobhunt </div>
-            <button className="torn_btn" onClick={openModal}>+</button>
-          </div>
+          
         
       </header>
       {createModalOpen && <Create isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)} />}
