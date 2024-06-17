@@ -3,10 +3,14 @@ import Create from "../../Pages/Games/create";
 import Error from "../../Pages/ErrorModal/ErrorModal";
 import "./Navbar.scss";
 
-const Navbar = ({ showSidebar }) => {
+const Navbar = ({ showSidebar , onSwitchCamere , facingMode}) => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const handleClick = () =>{
+    onSwitchCamere();
+  }
   
 
   const openModal = () => {
@@ -27,6 +31,10 @@ const Navbar = ({ showSidebar }) => {
           </li>
         </ul>
 
+        <button  onClick={handleClick}>
+          {facingMode === "user"? "Switch to back Camera" : "Switch to front Camera"}
+        </button>
+
           
         
       </header>
@@ -36,6 +44,8 @@ const Navbar = ({ showSidebar }) => {
       {errorModalOpen && <Error errorMessage={errorMessage} isOpen={errorModalOpen} onClose={() => setErrorModalOpen(false)} />}
     </>
   );
+
+  
 };
 
 export default Navbar;
