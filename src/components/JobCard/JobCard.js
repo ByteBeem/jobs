@@ -4,7 +4,7 @@ import './JobCard.scss';
 const JobCard = ({ job }) => {
 
   const handleApplyClick = () => {
-    window.location.href = job.Link; 
+    window.location.href = job.link; 
   };
 
   return (
