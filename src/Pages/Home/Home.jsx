@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import JobCard from "../../components/JobCard/JobCard";
@@ -10,17 +11,20 @@ class Home extends Component {
     this.state = {
       isSidebarOpen: false,
       searchQuery: "",
-      jobs: [
-        { id: 1, title: "Software Engineer", description: "Develop and maintain software applications." },
-        { id: 2, title: "Data Scientist", description: "Analyze data to gain insights." },
-        { id: 3, title: "Software Engineer", description: "Develop and maintain software applications." },
-        { id: 4, title: "Data Scientist", description: "Analyze data to gain insights." },
-        { id: 5, title: "Software Engineer", description: "Develop and maintain software applications." },
-        { id: 6, title: "Data Scientist", description: "Analyze data to gain insights." },
-        { id: 7, title: "Software Engineer", description: "Develop and maintain software applications." },
-        { id: 8, title: "Data Scientist", description: "Analyze data to gain insights." },
-      ],
+      jobs: [],
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get("https://jobs4life-a1f02ac04272.herokuapp.com/api/Identity/Jobs")
+      .then((response) => {
+        this.setState({ jobs: response.data });
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the jobs!", error);
+      });
   }
 
   toggleSidebar = () => {

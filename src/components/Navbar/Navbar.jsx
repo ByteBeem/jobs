@@ -11,7 +11,6 @@ const Navbar = ({ showSidebar , onSwitchCamere , facingMode}) => {
   const handleClick = () =>{
     onSwitchCamere();
   }
-  
 
   const openModal = () => {
     setCreateModalOpen(true);
