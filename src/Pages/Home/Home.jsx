@@ -9,6 +9,7 @@ class Home extends Component {
     super(props);
     this.state = {
       isSidebarOpen: false,
+      searchQuery: "",
       jobs: [
         { id: 1, title: "Software Engineer", description: "Develop and maintain software applications." },
         { id: 2, title: "Data Scientist", description: "Analyze data to gain insights." },
@@ -28,9 +29,19 @@ class Home extends Component {
     }));
   };
 
+  handleSearchChange = (e) => {
+    this.setState({ searchQuery: e.target.value });
+  };
+
   render() {
     const { showSidebar, active, closeSidebar } = this.props;
-    const { isSidebarOpen, jobs } = this.state;
+    const { isSidebarOpen, searchQuery, jobs } = this.state;
+
+    const filteredJobs = jobs.filter(
+      (job) =>
+        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
       <div className="home">
@@ -38,9 +49,17 @@ class Home extends Component {
         <div className="home_container">
           <Navbar showSidebar={showSidebar} />
           <div className="content">
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="Search jobs..."
+                value={searchQuery}
+                onChange={this.handleSearchChange}
+              />
+            </div>
             <div className="jobs_application">
               <div className="job-cards-container">
-                {jobs.map((job) => (
+                {filteredJobs.map((job) => (
                   <JobCard key={job.id} job={job} />
                 ))}
               </div>

@@ -5,11 +5,38 @@
 
   .home_container {
     flex: 1;
-    margin-left: 250px; 
+    margin-left: 250px; // Default sidebar width for larger screens
     padding-bottom: 3rem;
 
     .content {
       padding: 5rem 0 1rem 0;
+
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        input {
+          width: 50%;
+          padding: 10px;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          transition: width 0.3s ease;
+
+          @media (max-width: 1200px) {
+            width: 70%;
+          }
+
+          @media (max-width: 768px) {
+            width: 90%;
+          }
+
+          @media (max-width: 480px) {
+            width: 100%;
+          }
+        }
+      }
     }
   }
 
@@ -23,6 +50,10 @@
       font-weight: bold;
       color: #333;
       margin-bottom: 20px;
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
     }
 
     .application_steps {
@@ -30,8 +61,7 @@
       padding-left: 0;
       counter-reset: step;
 
-      @media only screen and (max-width: 768px) {
-        
+      @media (max-width: 768px) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,6 +82,10 @@
         font-weight: bold;
         margin-right: 5px;
         color: #007bff;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 14px;
       }
     }
   }
@@ -75,9 +109,9 @@
     justify-content: center;
     align-items: center;
 
-    @media only screen and (max-width: 768px) {
-      font-size: 12px; 
-      padding: 10px; 
+    @media (max-width: 768px) {
+      font-size: 12px;
+      padding: 10px;
       bottom: 90px;
 
       &.above-sidebar {
@@ -86,15 +120,52 @@
       }
     }
   }
-}
 
+  @media (max-width: 1200px) {
+    .home_container {
+      margin-left: 200px; // Adjust for smaller screens
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    .home_container {
+      margin-left: 0;
+      padding: 0;
+
+      .content {
+        padding: 2rem 0 1rem 0;
+      }
+    }
+
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: static;
+    }
+
+    .footer {
+      position: static;
+      bottom: unset;
+      width: 100%;
+    }
+  }
+}
 
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px; 
+  width: 250px;
   height: 100%;
-  background-color : var(--primary-dark);; 
+  background-color: var(--primary-dark);
   z-index: 1000;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
 }

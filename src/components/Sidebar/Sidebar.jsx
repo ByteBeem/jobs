@@ -19,7 +19,7 @@ const Sidebar = ({ active, closeSidebar }) => {
         </div>
       )}
       <div className="top">
-        <h3>Face4ife.co.za</h3>
+        <h3>Jobs4ife.co.za</h3>
         <div className="close_btn">&times;</div>
       </div>
 
