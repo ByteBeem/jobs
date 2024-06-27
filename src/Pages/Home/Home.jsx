@@ -1,27 +1,36 @@
 import React, { Component } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import  WebcamCapture from "../../components/WebcamCapture";
+import JobCard from "../../components/JobCard/JobCard";
 import "./Home.scss";
-
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSidebarOpen: false 
+      isSidebarOpen: false,
+      jobs: [
+        { id: 1, title: "Software Engineer", description: "Develop and maintain software applications." },
+        { id: 2, title: "Data Scientist", description: "Analyze data to gain insights." },
+        { id: 3, title: "Software Engineer", description: "Develop and maintain software applications." },
+        { id: 4, title: "Data Scientist", description: "Analyze data to gain insights." },
+        { id: 5, title: "Software Engineer", description: "Develop and maintain software applications." },
+        { id: 6, title: "Data Scientist", description: "Analyze data to gain insights." },
+        { id: 7, title: "Software Engineer", description: "Develop and maintain software applications." },
+        { id: 8, title: "Data Scientist", description: "Analyze data to gain insights." },
+      ],
     };
   }
 
   toggleSidebar = () => {
     this.setState((prevState) => ({
-      isSidebarOpen: !prevState.isSidebarOpen
+      isSidebarOpen: !prevState.isSidebarOpen,
     }));
   };
 
   render() {
     const { showSidebar, active, closeSidebar } = this.props;
-    const { isSidebarOpen } = this.state;
+    const { isSidebarOpen, jobs } = this.state;
 
     return (
       <div className="home">
@@ -30,12 +39,16 @@ class Home extends Component {
           <Navbar showSidebar={showSidebar} />
           <div className="content">
             <div className="jobs_application">
-            <WebcamCapture />
+              <div className="job-cards-container">
+                {jobs.map((job) => (
+                  <JobCard key={job.id} job={job} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
         <footer className={`footer ${isSidebarOpen ? "above-sidebar" : ""}`}>
-          <p>See someone's real identity , Scan different faces and know your surroundings. Face4life.co.za does the job!</p>
+          <p>Find Free Fast Real Jobs Here: Jobs4life.co.za , For any Enquiries Contact 0798603827. : CopyRight 2024</p>
         </footer>
       </div>
     );

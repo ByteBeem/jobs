@@ -25,18 +25,13 @@ const Navbar = ({ showSidebar , onSwitchCamere , facingMode}) => {
         <ul className="games_filter">
           <li>
             <div className="balance">
-              <h6>Face4ife.co.za</h6>
+              <h4>Jobs4life.co.za</h4>
              
             </div>
           </li>
         </ul>
 
-        <button  onClick={handleClick}>
-          {facingMode === "user"? "Switch to back Camera" : "Switch to front Camera"}
-        </button>
-
-          
-        
+      
       </header>
       {createModalOpen && <Create isOpen={createModalOpen} onClose={() => setCreateModalOpen(false)} />}
       
