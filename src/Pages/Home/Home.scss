@@ -15,8 +15,9 @@
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
+        
 
-        input {
+        select {
           width: 50%;
           padding: 10px;
           font-size: 16px;
@@ -167,5 +168,23 @@
     width: 100%;
     height: auto;
     position: static;
+  }
+
+  .province-select {
+    margin-top: 10px;
+    
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 200px;
+    }
+    
+    .searching-indicator {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #888;
+    }
   }
 }

@@ -11,21 +11,38 @@ class Home extends Component {
     this.state = {
       isSidebarOpen: false,
       searchQuery: "",
+      selectedProvince: "",
       jobs: [],
+      searching: false,
     };
   }
 
   componentDidMount() {
+    this.fetchJobs(); // Fetch jobs initially
+  }
+
+  fetchJobs = () => {
+    const { selectedProvince } = this.state;
+    let url = "https://jobs4life-a1f02ac04272.herokuapp.com/api/Identity/Jobs";
+    
+    // Append province filter if selected
+    if (selectedProvince) {
+      url += `?province=${selectedProvince}`;
+    }
+    
+    this.setState({ searching: true }); // Set searching state to true
+
     axios
-      .get("https://jobs4life-a1f02ac04272.herokuapp.com/api/Identity/Jobs")
+      .get(url)
       .then((response) => {
-        this.setState({ jobs: response.data });
+        this.setState({ jobs: response.data, searching: false });
         console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the jobs!", error);
+        this.setState({ searching: false });
       });
-  }
+  };
 
   toggleSidebar = () => {
     this.setState((prevState) => ({
@@ -37,9 +54,15 @@ class Home extends Component {
     this.setState({ searchQuery: e.target.value });
   };
 
+  handleProvinceChange = (e) => {
+    const selectedProvince = e.target.value;
+    this.setState({ selectedProvince, searching: true }, () => {
+      this.fetchJobs(); // Trigger job fetch when province changes
+    });
+  };
+
   render() {
-    const { showSidebar, active, closeSidebar } = this.props;
-    const { isSidebarOpen, searchQuery, jobs } = this.state;
+    const { isSidebarOpen, searchQuery, jobs, selectedProvince, searching } = this.state;
 
     const filteredJobs = jobs.filter(
       (job) =>
@@ -49,29 +72,33 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <Sidebar active={active} closeSidebar={closeSidebar} />
+        <Sidebar active={this.props.active} closeSidebar={this.props.closeSidebar} />
         <div className="home_container">
-          <Navbar showSidebar={showSidebar} />
+          <Navbar showSidebar={this.props.showSidebar} />
           <div className="content">
             <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Search jobs..."
-                value={searchQuery}
-                onChange={this.handleSearchChange}
-              />
+              <select className="select" value={selectedProvince} onChange={this.handleProvinceChange}>
+                <option value="">Search by Province</option>
+                <option value="Gauteng">Gauteng</option>
+                <option value="Western Cape">Western Cape</option>
+                <option value="Eastern Cape">Eastern Cape</option>
+                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+              </select>
             </div>
-            <div className="jobs_application">
+
+            {searching ? (
+              <div className="searching-message">Searching...</div>
+            ) : (
               <div className="job-cards-container">
                 {filteredJobs.map((job) => (
                   <JobCard key={job.id} job={job} />
                 ))}
               </div>
-            </div>
+            )}
           </div>
         </div>
         <footer className={`footer ${isSidebarOpen ? "above-sidebar" : ""}`}>
-          <p>Find Free Fast Real Jobs Here: Jobs4life.co.za , For any Enquiries Contact 0798603827. : CopyRight 2024</p>
+          <p>Find Free Fast Real Jobs Here: Jobs4life.co.za, For any Enquiries Contact 0798603827. : CopyRight 2024</p>
         </footer>
       </div>
     );
