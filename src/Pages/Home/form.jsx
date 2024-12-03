@@ -10,6 +10,7 @@ const Form = ({ isOpen, onClose }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false); // Track payment processing state
   const url = 'https://api.play929.com';
 
   const handleChange = (e) => {
@@ -43,18 +44,23 @@ const Form = ({ isOpen, onClose }) => {
   };
 
   const handlePayment = () => {
+    setIsPaymentProcessing(true); // Start payment processing
+
     const amount = getRandomAmount();  // Get the random payment amount
 
     // Make the axios request to process the payment
     axios
       .get(`${url}/api/payment/process?amount=${amount}`, {})
       .then((response) => {
+        setIsPaymentProcessing(false); // End payment processing
+
         if (response.status === 200) {
           // Redirect to the payment page after successful response
           window.location.href = response.data.link;
         }
       })
       .catch((error) => {
+        setIsPaymentProcessing(false); // End payment processing
         console.error("Payment processing error:", error.response?.data?.error || "Something went wrong!");
       });
   };
@@ -67,7 +73,7 @@ const Form = ({ isOpen, onClose }) => {
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
-        <h2 className="modal-title">Form Title</h2>
+        <h2 className="modal-title">Job Application</h2>
         {!showPaymentInfo ? (
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -111,9 +117,18 @@ const Form = ({ isOpen, onClose }) => {
             <p>
               Boost your chances of getting hired! Pay a R{getRandomAmount()} application fee to ensure your application is prioritized and reviewed for faster approval:
             </p>
-            <button className="pay-now-button" onClick={handlePayment}>
-              Pay Now
+            <button
+              className="pay-now-button"
+              onClick={handlePayment}
+              disabled={isPaymentProcessing} // Disable the button during payment processing
+            >
+              {isPaymentProcessing ? "Processing Payment..." : "Pay Now"}
             </button>
+            {isPaymentProcessing && (
+              <div className="loading-spinner">
+                <div className="spinner"></div> {/* Spinner element */}
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -32,6 +32,7 @@ class Home extends Component {
       .get(url)
       .then((response) => {
         this.setState({ jobs: response.data.jobs, searching: false });
+        console.log(response.data.jobs)
       })
       .catch((error) => {
         console.error("There was an error fetching the jobs!", error);
