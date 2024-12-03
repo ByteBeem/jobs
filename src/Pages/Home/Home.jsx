@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import JobCard from "../../components/JobCard/JobCard";
 import "./Home.scss";
+import Form from "./form";
 
 class Home extends Component {
   constructor(props) {
@@ -14,29 +15,23 @@ class Home extends Component {
       selectedProvince: "",
       jobs: [],
       searching: false,
+      showModal: false, // Added for modal control
     };
   }
 
   componentDidMount() {
-    this.fetchJobs(); // Fetch jobs initially
+    this.fetchJobs();
   }
 
   fetchJobs = () => {
-    const { selectedProvince } = this.state;
-    let url = "https://jobs4life-a1f02ac04272.herokuapp.com/api/Identity/Jobs";
-    
-    // Append province filter if selected
-    if (selectedProvince) {
-      url += `?province=${selectedProvince}`;
-    }
-    
-    this.setState({ searching: true }); // Set searching state to true
+    const url = "https://api.play929.com/api/Games/jobs";
+
+    this.setState({ searching: true });
 
     axios
       .get(url)
       .then((response) => {
-        this.setState({ jobs: response.data, searching: false });
-        console.log(response.data);
+        this.setState({ jobs: response.data.jobs, searching: false });
       })
       .catch((error) => {
         console.error("There was an error fetching the jobs!", error);
@@ -57,12 +52,22 @@ class Home extends Component {
   handleProvinceChange = (e) => {
     const selectedProvince = e.target.value;
     this.setState({ selectedProvince, searching: true }, () => {
-      this.fetchJobs(); // Trigger job fetch when province changes
+      this.fetchJobs();
     });
   };
 
+  // Method to open modal
+  openModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  // Method to close modal
+  onCloseModal = () => {
+    this.setState({ showModal: false });
+  };
+
   render() {
-    const { isSidebarOpen, searchQuery, jobs, selectedProvince, searching } = this.state;
+    const { isSidebarOpen, searchQuery, jobs, selectedProvince, searching, showModal } = this.state;
 
     const filteredJobs = jobs.filter(
       (job) =>
@@ -76,29 +81,35 @@ class Home extends Component {
         <div className="home_container">
           <Navbar showSidebar={this.props.showSidebar} />
           <div className="content">
-            <div className="search-bar">
-              <select className="select" value={selectedProvince} onChange={this.handleProvinceChange}>
-                <option value="">Search by Province</option>
-                <option value="Gauteng">Gauteng</option>
-                <option value="Western Cape">Western Cape</option>
-                <option value="Eastern Cape">Eastern Cape</option>
-                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-              </select>
-            </div>
-
             {searching ? (
               <div className="searching-message">Searching...</div>
             ) : (
               <div className="job-cards-container">
                 {filteredJobs.map((job) => (
-                  <JobCard key={job.id} job={job} />
+                  <div className="job-card" key={job.id}>
+                    <h3 className="job-title">
+                      {job.title} - {job.province}
+                    </h3>
+                    <p className="job-description">{job.description}</p>
+                    {/* Add the Apply button, opening the modal */}
+                    <button className="apply-button" onClick={this.openModal}>
+                      Apply
+                    </button>
+                  </div>
                 ))}
               </div>
             )}
           </div>
         </div>
+
+        {/* Conditionally render the modal */}
+        {showModal && <Form isOpen={showModal} onClose={this.onCloseModal} />}
+
         <footer className={`footer ${isSidebarOpen ? "above-sidebar" : ""}`}>
-          <p>Find Free Fast Real Jobs Here: Jobs4life.co.za, For any Enquiries Contact 0798603827. : CopyRight 2024</p>
+          <p>
+            Find Free Fast Real Jobs Here: Jobs4life.co.za, For any Enquiries
+            Contact 0798603827. : CopyRight 2024
+          </p>
         </footer>
       </div>
     );
